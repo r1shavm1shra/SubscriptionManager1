@@ -16,7 +16,7 @@ public interface UserAccountDao {
 	@Query("SELECT * FROM useraccount")
 	public LiveData<List<UserAccount>> getAllUserAccounts();
 
-	@Query("SELECT rowid, name, password FROM useraccount WHERE name LIKE :name AND password LIKE :password LIMIT 1")
+	@Query("SELECT rowid, name, password,budget,currency FROM useraccount WHERE name LIKE :name AND password LIKE :password LIMIT 1")
 	public LiveData<UserAccount> findByName(String name, String password);
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -31,6 +31,6 @@ public interface UserAccountDao {
 	@Query("UPDATE useraccount SET password = :password WHERE name LIKE :name")
 	public void updatePassword(String name, String password);
 
-	@Query("SELECT rowid, name, password FROM useraccount WHERE name LIKE :name LIMIT 1")
+	@Query("SELECT rowid, name, password,budget,currency FROM useraccount WHERE name LIKE :name LIMIT 1")
 	public LiveData<UserAccount> getCurrentUser(String name);
 }

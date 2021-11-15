@@ -111,7 +111,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 			Activity activity = requireActivity();
 
-			UserAccount userAccount = new UserAccount(username, sha256HashStr);
+			UserAccount userAccount = new UserAccount(username, sha256HashStr, "","");
 			LiveData<List<UserAccount>> userAccountListData = mUserAccountViewModel.getAllUserAccounts();
 			List<UserAccount> userAccountList = userAccountListData.getValue();
 

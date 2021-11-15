@@ -8,9 +8,10 @@ import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,26 +36,24 @@ import java.security.NoSuchAlgorithmException;
 import timber.log.Timber;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.provider.Settings;
-import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Fragment for user account creation.
@@ -65,12 +64,12 @@ import java.util.Map;
 public class AccountFragment extends Fragment implements View.OnClickListener {
     private EditText mEtUsername;
     private EditText mEtPassword;
-    private EditText mEtConfirm;
-    private TextView mTvCurrency;
+	private EditText mEtConfirm;
+	private EditText mEtBudget;
 
     private UserAccountViewModel mUserAccountViewModel;
 
-
+	AutoCompleteTextView mEtCurrency;
 	LocationManager locationManager;
 	Context mContext;
 	Location location;
@@ -99,8 +98,18 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 		mEtUsername = v.findViewById(R.id.username);
 		mEtPassword = v.findViewById(R.id.password);
 		mEtConfirm = v.findViewById(R.id.password_confirm);
-		mTvCurrency = v.findViewById(R.id.show_currency);
-		mTvCurrency.setText("Currency: " + GPSCurrency());
+		mEtBudget = v.findViewById(R.id.budget);
+		mEtCurrency = (AutoCompleteTextView) v.findViewById(R.id.currency);
+		Set<Currency> currencies =  Currency.getAvailableCurrencies();
+		List<String> currencyList = new ArrayList<>();
+		for(Currency c:currencies){
+			currencyList.add(c.getDisplayName() +"-"+ c.getSymbol());
+		}
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,android.R.layout.select_dialog_item, currencyList);
+		mEtCurrency.setAdapter(adapter);
+		mEtCurrency.setText(GPSCurrency());
+		//mTvCurrency = v.findViewById(R.id.show_currency);
+		//mTvCurrency.setText("Currency: " + );
 
 		Button btnAdd = v.findViewById(R.id.done_button);
 		btnAdd.setOnClickListener(this);
@@ -164,7 +173,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         FragmentActivity activity = requireActivity();
         final String username = mEtUsername.getText().toString();
         final String password = mEtPassword.getText().toString();
-        final String confirm = mEtConfirm.getText().toString();
+		final String confirm = mEtConfirm.getText().toString();
+		final String budget = mEtBudget.getText().toString();
+		final String currency = mEtCurrency.getText().toString();
+
 		if (password.equals(confirm) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
 
 			try {
@@ -173,7 +185,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 				String sha256HashStr = StringUtils.bytesToHex(sha256HashBytes);
 
 				// New way: create new UserAccount, then add it to ViewModel
-				UserAccount userAccount = new UserAccount(username, sha256HashStr);
+				UserAccount userAccount = new UserAccount(username, sha256HashStr,budget,currency);
 				mUserAccountViewModel.insert(userAccount);
 				Toast.makeText(activity.getApplicationContext(), "New UserAccount added", Toast.LENGTH_SHORT).show();
 
@@ -220,7 +232,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 				location = getLocation(location, 1);
 			}
 			 */
-			String symbol = "$";
+			String symbol = "US Dollar-$";
 			double lat = 0.0;
 			double lng = 0.0;
 			//If location is null, just use default $. Otherwise, find the currency using location
@@ -298,7 +310,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 			//Create locale, get the currency, and get the symbol for that currency
 			Locale locale = new Locale("", countryCode);
 			Currency currency = Currency.getInstance(locale);
-			String symbol = currency.getSymbol();
+			String symbol = currency.getDisplayName() + "-" + currency.getSymbol();
 			return symbol;
 		}
 

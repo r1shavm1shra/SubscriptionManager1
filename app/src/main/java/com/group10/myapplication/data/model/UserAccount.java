@@ -26,9 +26,19 @@ public class UserAccount {
     @ColumnInfo(name = "password")
     public String mPassword;
 
-    public UserAccount(@NonNull String name, @NonNull String password) {
+    @NonNull
+    @ColumnInfo(name = "budget")
+    public String mBudget;
+
+    @NonNull
+    @ColumnInfo(name = "currency")
+    public String mCurrency;
+
+    public UserAccount(@NonNull String name, @NonNull String password,@NonNull String budget,@NonNull String currency) {
         mName = name;
         mPassword = password;
+        mBudget = budget;
+        mCurrency = currency;
     }
 
     public String getName() {
@@ -37,6 +47,12 @@ public class UserAccount {
 
     public String getPassword() {
         return mPassword;
+    }
+    public String getBudget() {
+        return mBudget;
+    }
+    public String getCurrency() {
+        return mCurrency;
     }
 
     @Override
