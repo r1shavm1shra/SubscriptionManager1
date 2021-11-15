@@ -23,6 +23,8 @@ import androidx.preference.PreferenceManager;
 
 import com.group10.myapplication.R;
 import com.group10.myapplication.StringUtils;
+import com.group10.myapplication.data.SubscriptionViewModel;
+import com.group10.myapplication.data.model.Subscription;
 import com.group10.myapplication.data.model.UserAccount;
 import com.group10.myapplication.data.UserAccountViewModel;
 
@@ -91,6 +93,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             newUserButton.setOnClickListener(this);
         }
 
+		setOnFocusChangeListener(mUsernameEditText,"Enter Username");
+		setOnFocusChangeListener(mPasswordEditText,"Enter Password");
+
         return v;
     }
 
@@ -118,9 +123,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putString(OPT_NAME, username);
 				editor.apply();
-
+				SubscriptionViewModel mSubscriptionViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(SubscriptionViewModel.class);
 				// Bring up the GameOptions screen
-
 				startActivity(new Intent("com.group10.myapplication.navigation"));
 				activity.finish();
 			} else {
@@ -155,5 +159,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 		} else {
         	Timber.e("Invalid button click!");
 		}
+	}
+
+	private void setOnFocusChangeListener(EditText editText, String name){
+		editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					editText.setHint(name);
+				} else {
+					editText.setHint("");
+				}
+			}
+		});
 	}
 }

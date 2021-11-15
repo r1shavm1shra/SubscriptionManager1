@@ -1,27 +1,38 @@
 package com.group10.myapplication.ui.gallery;
 
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.group10.myapplication.placeholder.PlaceholderContent.PlaceholderItem;
+import com.group10.myapplication.R;
+import com.group10.myapplication.data.SubscriptionViewModel;
+import com.group10.myapplication.data.model.Subscription;
 import com.group10.myapplication.databinding.FragmentItemBinding;
+import com.group10.myapplication.ui.home.HomeFragment;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link Subscription}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>{
 
-    private final List<PlaceholderItem> mValues;
-
-    public MyItemRecyclerViewAdapter(List<PlaceholderItem> items) {
+    private List<Subscription> mValues;
+    private GalleryFragment mFragment;
+    public MyItemRecyclerViewAdapter(List<Subscription> items, GalleryFragment galleryFragment) {
         mValues = items;
+        mFragment = galleryFragment;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -33,8 +44,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).mName);
+        holder.mContentView.setText(mValues.get(position).mCost);
     }
 
     @Override
@@ -42,20 +53,46 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final TextView mIdView;
         public final TextView mContentView;
-        public PlaceholderItem mItem;
+        public Subscription mItem;
+        private ImageView mDeleteButton;
+        private SubscriptionViewModel mSubscriptionViewModel;
 
         public ViewHolder(FragmentItemBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+            mIdView = binding.name;
+            mContentView = binding.cost;
+            View v = binding.getRoot();
+            mDeleteButton = v.findViewById(R.id.delete);
+            mDeleteButton.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View view) {
+            final int viewId = view.getId();
+            if (viewId == R.id.delete) {
+                //removeAt(getLayoutPosition(), view);
+                mFragment.delete(mValues.get(getLayoutPosition()));
+            }
+            else{
+
+            }
+        }
+        public void removeAt(int position, View v) {
+            mValues.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, mValues.size());
+
+        }
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+    }
+    public void setData(List<Subscription> newData) {
+        this.mValues = newData;
+        notifyDataSetChanged();
     }
 }

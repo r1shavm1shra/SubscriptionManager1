@@ -25,6 +25,11 @@
     <string name="login_error_text">Login failed.</string>
     <string name="ok_text">OK</string>
 
+    <string name="hardware">Show virtual keyboard</string>
+    <string name="show_ime">Keep it on screen while physical keyboard is active</string>
+    <string name="select_input_method">Choose input method</string>
+
+
 
     <string name="passwords_match_error_text">Passwords do not match.</string>
     <string name="try_again_text">Try Again</string>
@@ -54,5 +59,8 @@
 	<string name="next_due_date">Next Due Date</string>
 	<string name="create_subscription">Create Subscription</string>
 	<string name="go_to_applications">Go To Applications</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">FCM Message</string>
 
 </resources>

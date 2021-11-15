@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/new_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/new_bg"
 
     >
     <LinearLayout
@@ -21,63 +22,59 @@
             android:layout_marginBottom="8dp"
             android:text="@string/new_subscription"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-        <TextView
-            android:text="@string/subscription_name"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_gravity="start" />
-        <EditText
-            android:id="@+id/subscription_name"
-            android:hint="@string/enter_subscription_name"
-            android:inputType="text"
-            android:textColorHint="@android:color/darker_gray"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1" />
+            app:boxBackgroundMode="none"
+            android:hint="@string/subscription_name">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@string/subscription_cost" />
-        <EditText
-            android:id="@+id/subscription_cost"
-            android:inputType="numberDecimal|numberSigned"
-            android:textColorHint="@android:color/darker_gray"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
+            <EditText
+                android:id="@+id/subscription_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1" />
-        <TextView
-            android:text="@string/next_due_date"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_gravity="start"
-            android:labelFor="@+id/next_due_date" />
-        <EditText
-            android:id="@+id/next_due_date"
-            android:inputType="date"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
+            app:boxBackgroundMode="none"
+            android:hint="@string/subscription_cost">
+
+            <EditText
+                android:id="@+id/subscription_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/every"
+            android:layout_width="fill_parent"
+                app:boxBackgroundMode="none"
+                android:layout_height="wrap_content"/>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="8dp"
-            android:maxLines="1" />
+            app:boxBackgroundMode="none"
+            android:hint="@string/next_due_date">
+
+            <EditText
+                android:id="@+id/next_due_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/done_button"
@@ -111,7 +108,4 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+    </LinearLayout>

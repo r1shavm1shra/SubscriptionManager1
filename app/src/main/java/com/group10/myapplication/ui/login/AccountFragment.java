@@ -71,6 +71,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 		btnAdd.setOnClickListener(this);
 		Button btnCancel = v.findViewById(R.id.cancel_button);
 		btnCancel.setOnClickListener(this);
+		setOnFocusChangeListener(mEtUsername,"Enter Username");
+		setOnFocusChangeListener(mEtPassword,"Enter Password");
+		setOnFocusChangeListener(mEtConfirm,"Retype Password");
+
 		Button btnExit = v.findViewById(R.id.exit_button);
 		if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
 			btnExit.setOnClickListener(this);
@@ -151,6 +155,16 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 			fragment.show(manager, "account_error");
 		}
 	}
-
+	private void setOnFocusChangeListener(EditText editText, String name){
+		editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					editText.setHint(name);
+				} else {
+					editText.setHint("");
+				}
+			}
+		});
+	}
 
 }
