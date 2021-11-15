@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -43,7 +46,7 @@ public class NavigationActivity extends AppCompatActivity {
                 // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_logout)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_logout, R.id.add)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -59,6 +62,18 @@ public class NavigationActivity extends AppCompatActivity {
                 navController.navigate(R.id.add);
             }
         });
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() == R.id.add) {
+                    binding.appBarNavigation.fab.setVisibility(View.GONE);
+                } else {
+                    binding.appBarNavigation.fab.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
         navigationView.getMenu().findItem(R.id.nav_logout).setOnMenuItemClickListener(menuItem -> {
             startActivity(new Intent(this, LoginActivity.class));

@@ -24,21 +24,9 @@ public class SubscriptionViewModel extends AndroidViewModel {
 		mAllSubscriptions = mRepository.getAllSubscriptions();
 	}
 
-	public boolean containsSubscription(Subscription Subscription) {
-		boolean accountInList = false;
 
-		LiveData<Subscription> SubscriptionLiveData = mRepository.findSubscriptionByName(Subscription);
-		Subscription theSubscription = SubscriptionLiveData.getValue();
-		if (Objects.requireNonNull(theSubscription).getName().equals(Subscription.getName()) &&
-				Objects.requireNonNull(theSubscription).getCost().equals(Subscription.getCost())) {
-			accountInList = true;
-		}
-
-		return accountInList;
-	}
-
-	public LiveData<Subscription> getSubscription(Subscription Subscription) {
-		return mRepository.findSubscriptionByName(Subscription);
+	public LiveData<Subscription> getSubscription(int id) {
+		return mRepository.findSubscriptionById(id);
 	}
 
 	public LiveData<List<Subscription>> getAllSubscriptions() { return mAllSubscriptions; }
@@ -48,5 +36,8 @@ public class SubscriptionViewModel extends AndroidViewModel {
 	}
 	public void delete(Subscription Subscription) {
 		mRepository.delete(Subscription);
+	}
+	public void update(int id, Subscription Subscription) {
+		mRepository.update(id, Subscription);
 	}
 }

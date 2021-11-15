@@ -18,6 +18,8 @@ import com.group10.myapplication.data.model.Subscription;
 import com.group10.myapplication.databinding.FragmentItemBinding;
 import com.group10.myapplication.ui.home.HomeFragment;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -58,6 +60,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public final TextView mContentView;
         public Subscription mItem;
         private ImageView mDeleteButton;
+        private TextView mNameButton;
+        private TextView mCostButton;
         private SubscriptionViewModel mSubscriptionViewModel;
 
         public ViewHolder(FragmentItemBinding binding) {
@@ -66,6 +70,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             mContentView = binding.cost;
             View v = binding.getRoot();
             mDeleteButton = v.findViewById(R.id.delete);
+            mNameButton = v.findViewById(R.id.name);
+            mCostButton = v.findViewById(R.id.cost);
+            mNameButton.setOnClickListener(this);
+            mCostButton.setOnClickListener(this);
             mDeleteButton.setOnClickListener(this);
         }
 
@@ -77,7 +85,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 mFragment.delete(mValues.get(getLayoutPosition()));
             }
             else{
-
+                mFragment.navigateToAdd(mValues.get(getLayoutPosition()).mUid);
             }
         }
         public void removeAt(int position, View v) {
