@@ -1,22 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    android:background="@drawable/new_bg">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dip"
+            android:text="@string/welcome_back"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#90ee90"
+            android:id="@+id/home_budgetId">
+
+
+
+            <TextView
+                android:id="@+id/home_budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Budget $250.00"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#90ee90"
+            android:id="@+id/home_spendId">
+
+            <TextView
+                android:id="@+id/home_spend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Spend $58.00"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:layout_centerInParent="true" />
+
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#90ee90"
+            android:id="@+id/home_total_appId">
+
+            <TextView
+                android:id="@+id/home_total_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total number of Subscriptions #7"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#90ee90"
+            android:id="@+id/home_rem_budgetId">
+
+            <TextView
+                android:id="@+id/home_rem_budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remaining Budget $192"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#90ee90"
+        android:id="@+id/home_average_spendId">
+        <TextView
+            android:id="@+id/home_average_spend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Average spend per month $4.83"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</LinearLayout>
+
+</ScrollView>

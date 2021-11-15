@@ -40,6 +40,7 @@
     <string name="username">Username</string>
     <string name="login_title">Log in to your Subscription Manager account</string>
     <string name="welcome_message">Glad to see you!</string>
+    <string name="welcome_back">Welcome Back!</string>
     <string name="enter_username">Enter Username</string>
     <string name="main_title">Subscription Manager</string>
     <string name="app_name">Subscription Manager</string>
