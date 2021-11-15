@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -65,6 +66,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     private EditText mEtUsername;
     private EditText mEtPassword;
     private EditText mEtConfirm;
+    private TextView mTvCurrency;
 
     private UserAccountViewModel mUserAccountViewModel;
 
@@ -97,6 +99,9 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 		mEtUsername = v.findViewById(R.id.username);
 		mEtPassword = v.findViewById(R.id.password);
 		mEtConfirm = v.findViewById(R.id.password_confirm);
+		mTvCurrency = v.findViewById(R.id.show_currency);
+		mTvCurrency.setText("Currency: " + GPSCurrency());
+
 		Button btnAdd = v.findViewById(R.id.done_button);
 		btnAdd.setOnClickListener(this);
 		Button btnCancel = v.findViewById(R.id.cancel_button);
