@@ -27,14 +27,16 @@ import androidx.room.Query;
 import com.group10.myapplication.R;
 import com.group10.myapplication.data.UserAccountViewModel;
 import com.group10.myapplication.data.model.UserAccount;
+import com.group10.myapplication.databinding.FragmentSettingsBinding;
 
 import java.util.List;
 
 
 public class SettingsFragment extends Fragment implements View.OnClickListener{
 
+    private FragmentSettingsBinding binding;
     private UserAccountViewModel mUserAccountViewModel;
-    private UserAccount currentUser = getCurrentUser();
+    private UserAccount currentUser;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -43,22 +45,18 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         Activity activity = requireActivity();
         mUserAccountViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserAccountViewModel.class);
         // Here's a dummy observer object that indicates when the UserAccounts change in the database.
-        mUserAccountViewModel.getAllUserAccounts().observe((LifecycleOwner) activity, new Observer<List<UserAccount>>() {
-            @Override
-            public void onChanged(List<UserAccount> userAccounts) {
-                Log.d("SettingsFragment", "The list of UserAccounts just changed; it has %s elements" + userAccounts.size());
-            }
-        });
+        getCurrentUser();
 
 
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v;
-        Activity activity = requireActivity();
-        v = inflater.inflate(R.layout.fragment_settings, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
+        binding = FragmentSettingsBinding.inflate(inflater, container, false);
+        View v = binding.getRoot();
+
+        Activity activity = requireActivity();
         final Button updateBudgetButton = v.findViewById(R.id.update_budget_button);
         if (updateBudgetButton != null) {
             updateBudgetButton.setOnClickListener(this);
@@ -75,18 +73,23 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         return v;
     }
 
-    private UserAccount getCurrentUser(){
+    private void getCurrentUser(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         String name = preferences.getString("name", "Joe");
+        Activity activity = requireActivity();
+        mUserAccountViewModel.getCurrentUser(name).observe((LifecycleOwner)activity , new Observer<UserAccount>() {
+            @Override
+            public void onChanged(UserAccount UserAccount) {
+                currentUser = UserAccount;
+            }
+        });
         //If it passes all of these checks, then we can update the password to the new password
-        return mUserAccountViewModel.getCurrentUser(name).getValue();
     }
 
     @Override
     public void onClick(View v) {
         final Activity activity = requireActivity();
         final int viewId = v.getId();
-
         if (viewId == R.id.update_budget_button) {
             updateBudget();
         } else if (viewId == R.id.update_password_button) {
@@ -155,5 +158,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         //If it passes all of these checks, then we can update the password to the new password
         mUserAccountViewModel.deleteAccount(currentUser);
 
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

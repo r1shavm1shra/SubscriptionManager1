@@ -18,7 +18,7 @@
 
     <string name="menu_home">Overview</string>
     <string name="menu_gallery">Application</string>
-    <string name="menu_slideshow">Renewals</string>
+    <string name="menu_settings">Account Settings</string>
     <string name="menu_logout">Logout</string>
 
     <string name="error">Error</string>
