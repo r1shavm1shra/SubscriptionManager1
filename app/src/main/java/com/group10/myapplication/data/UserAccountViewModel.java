@@ -46,4 +46,16 @@ public class UserAccountViewModel extends AndroidViewModel {
 	public void insert(UserAccount userAccount) {
 		mRepository.insert(userAccount);
 	}
+
+	public void updatePassword(String name, String password) {
+		mRepository.updatePassword(name, password);
+	}
+
+	public LiveData<UserAccount> getCurrentUser (String name) {
+		return mRepository.getCurrentUser(name);
+	}
+
+	public void deleteAccount (UserAccount user){
+		mRepository.delete(user);
+	}
 }

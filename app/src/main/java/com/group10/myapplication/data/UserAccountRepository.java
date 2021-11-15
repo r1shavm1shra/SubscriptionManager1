@@ -48,8 +48,18 @@ public class UserAccountRepository {
 				mUserAccountDao.updateUserAccount(userAccount));
 	}
 
+	void updatePassword(String name, String password){
+		UserAccountDatabase.databaseWriteExecutor.execute(() ->
+				mUserAccountDao.updatePassword(name, password));
+	}
+	LiveData<UserAccount> getCurrentUser(String name){
+		return mUserAccountDao.getCurrentUser(name);
+	}
+
 	void delete(UserAccount userAccount) {
 		UserAccountDatabase.databaseWriteExecutor.execute(() ->
 				mUserAccountDao.delete(userAccount));
 	}
+
+
 }

@@ -22,7 +22,23 @@
         <entry key="..\:/OSU/MyApplication4/app/src/main/res/layout/input_method_switch_item.xml" value="0.1" />
         <entry key="..\:/OSU/MyApplication4/app/src/main/res/layout/nav_header_navigation.xml" value="0.1" />
         <entry key="..\:/OSU/MyApplication4/app/src/main/res/menu/activity_main_drawer.xml" value="0.1" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/activity_fragment1.xml" value="0.1" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/activity_navigation.xml" value="0.18" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/app_bar_navigation.xml" value="0.22" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/content_navigation.xml" value="0.1" />
         <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/fragment_account.xml" value="0.33" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/fragment_add.xml" value="0.25" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/fragment_gallery.xml" value="0.2" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/fragment_home.xml" value="0.15" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/fragment_item.xml" value="0.22" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/fragment_settings.xml" value="0.21" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/fragment_slideshow.xml" value="0.1" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/nav_header_navigation.xml" value="0.33" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/layout/update_password.xml" value="0.18" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/14406/StudioProjects/SubscriptionManager1/app/src/main/res/menu/navigation.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

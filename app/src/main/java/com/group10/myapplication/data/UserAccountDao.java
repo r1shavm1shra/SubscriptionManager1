@@ -27,4 +27,10 @@ public interface UserAccountDao {
 
 	@Delete
 	public void delete(UserAccount userAccount);
+
+	@Query("UPDATE useraccount SET password = :password WHERE name LIKE :name")
+	public void updatePassword(String name, String password);
+
+	@Query("SELECT rowid, name, password FROM useraccount WHERE name LIKE :name LIMIT 1")
+	public LiveData<UserAccount> getCurrentUser(String name);
 }

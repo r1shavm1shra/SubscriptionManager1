@@ -13,9 +13,9 @@
             android:icon="@drawable/list_1"
             android:title="@string/menu_gallery" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_account_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title = "Account Settings" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
