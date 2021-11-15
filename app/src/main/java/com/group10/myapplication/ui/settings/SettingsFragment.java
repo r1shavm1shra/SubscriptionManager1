@@ -2,6 +2,7 @@ package com.group10.myapplication.ui.settings;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,6 +29,7 @@ import com.group10.myapplication.R;
 import com.group10.myapplication.data.UserAccountViewModel;
 import com.group10.myapplication.data.model.UserAccount;
 import com.group10.myapplication.databinding.FragmentSettingsBinding;
+import com.group10.myapplication.ui.login.LoginActivity;
 
 import java.util.List;
 
@@ -153,10 +155,13 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     }
 
     private void deleteAccount(){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        Activity activity = getActivity();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         String name = preferences.getString("name", "Joe");
         //If it passes all of these checks, then we can update the password to the new password
         mUserAccountViewModel.deleteAccount(currentUser);
+        startActivity(new Intent(activity, LoginActivity.class));
+        activity.finish();
 
     }
     @Override
