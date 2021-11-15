@@ -30,8 +30,8 @@ public class SubscriptionRepository {
 		return mAllSubscriptions;
 	}
 
-	LiveData<Subscription> findSubscriptionByName(Subscription Subscription) {
-		LiveData<Subscription> theSubscription = mSubscriptionDao.findByName(Subscription.getName());
+	LiveData<Subscription> findSubscriptionById(int id) {
+		LiveData<Subscription> theSubscription = mSubscriptionDao.findById(id);
 
 		return theSubscription;
 	}
@@ -43,9 +43,9 @@ public class SubscriptionRepository {
 				mSubscriptionDao.insert(Subscription));
 	}
 
-	void update(Subscription Subscription) {
+	void update(int id, Subscription Subscription) {
 		SubscriptionDatabase.databaseWriteExecutor.execute(() ->
-				mSubscriptionDao.updateSubscription(Subscription));
+				mSubscriptionDao.updateSubscription(id,Subscription.getName(),Subscription.getCost(),Subscription.getDueDate()));
 	}
 
 	void delete(Subscription Subscription) {

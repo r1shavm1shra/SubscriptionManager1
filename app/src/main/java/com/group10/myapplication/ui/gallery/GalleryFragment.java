@@ -2,6 +2,7 @@ package com.group10.myapplication.ui.gallery;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +34,7 @@ import com.group10.myapplication.data.model.Subscription;
 import com.group10.myapplication.data.model.UserAccount;
 import com.group10.myapplication.databinding.FragmentGalleryBinding;
 import com.group10.myapplication.placeholder.PlaceholderContent;
+import com.group10.myapplication.ui.add.AddFragment;
 import com.group10.myapplication.ui.home.HomeFragment;
 
 import java.util.ArrayList;
@@ -120,6 +127,15 @@ public class GalleryFragment extends Fragment implements View.OnClickListener{
 
     public void delete(Subscription subscription) {
         mSubscriptionViewModel.delete(subscription);
+    }
+    public void navigateToAdd(int uid) {
+        Activity activity = requireActivity();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("uid", uid);
+        editor.apply();
+        NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment_content_navigation);
+        navController.navigate(R.id.add);
     }
 
 }
