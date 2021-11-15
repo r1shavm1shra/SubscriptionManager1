@@ -208,17 +208,18 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 			mContext = getActivity();
 			//Create location manager object
 
-
 			locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
 			location = new Location(LocationManager.GPS_PROVIDER);
 			location.setLatitude(0.0);
 			location.setLongitude(0.0);
 			location = getLocation(location, 0);
+			/*
 			if(location == null){
 				//Check if they listened, and changed got their location
 				location = getLocation(location, 1);
 			}
+			 */
 			String symbol = "$";
 			double lat = 0.0;
 			double lng = 0.0;
@@ -236,35 +237,41 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 		}
 
 		public Location getLocation(Location loc, int flag) {
-			if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-				if(flag==0) {
-					//If we can't get the location, ask for it
-					new AlertDialog.Builder(mContext).setMessage("Please enable GPS")
-							.setPositiveButton("Open your location settings", new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-									mContext.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-								}
-							})
-							.setNegativeButton("Cancel", null).show();
-				}
-				return null;
-			}else{
+    		try{
 				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, locationListenerGPS);
 				loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-			}
+			}catch (SecurityException e){
+    			if(flag==0) {
+				//If we can't get the location, ask for it
+				new AlertDialog.Builder(mContext).setMessage("Please enable GPS").setPositiveButton("Open your location settings", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+					mContext.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				}
+				}).setNegativeButton("Cancel", null).show();
+				}
+				return null;
+    		}
 			return loc;
+    	}
+
+		//Returns true if we can use the GPS
+		public boolean permissionGranted(){
+			return true;
 		}
 
 		//https://stackoverflow.com/questions/42218419/how-do-i-implement-the-locationlistener
 		LocationListener locationListenerGPS = new LocationListener() {
 			@Override
 			public void onLocationChanged(android.location.Location location) {
+				/*
 				double latitude = location.getLatitude();
 				double longitude = location.getLongitude();
-				String msg = "New Latitude: " + latitude + "New Longitude: " + longitude;
+				String msg = "Latitude: " + latitude + "New Longitude: " + longitude;
 				Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
+				*/
 			}
+
 
 			@Override
 			public void onStatusChanged(String provider, int status, Bundle extras) {
