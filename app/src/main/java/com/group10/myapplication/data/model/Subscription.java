@@ -30,10 +30,20 @@ public class Subscription {
     @ColumnInfo(name = "duedate")
     public String mDueDate;
 
-    public Subscription(@NonNull String name, @NonNull String cost, @NonNull String dueDate) {
+    @NonNull
+    @ColumnInfo(name = "username")
+    public String mUserName;
+
+    @NonNull
+    @ColumnInfo(name = "duration")
+    public String mDuration;
+
+    public Subscription(@NonNull String name, @NonNull String cost, @NonNull String dueDate, @NonNull String userName,@NonNull String duration) {
         mName = name;
         mCost = cost;
         mDueDate = dueDate;
+        mUserName = userName;
+        mDuration = duration;
     }
 
     public String getName() {
@@ -46,6 +56,13 @@ public class Subscription {
     public String getDueDate() {
         return mDueDate;
     }
+    public String getUserName() {
+        return mUserName;
+    }
+    public String getDuration() {
+        return mDuration;
+    }
+
 
     @Override
     public boolean equals(Object o) {

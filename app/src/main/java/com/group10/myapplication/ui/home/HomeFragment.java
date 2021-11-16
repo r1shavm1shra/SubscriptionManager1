@@ -46,7 +46,9 @@ public class HomeFragment extends Fragment {
         Activity activity = getActivity();
         mSubscriptionViewModel = new ViewModelProvider(this).get(SubscriptionViewModel.class);
         try {
-            mSubscriptionViewModel.getAllSubscriptions().observe((LifecycleOwner) activity, new Observer<List<Subscription>>() {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+            String username = preferences.getString("name", "");
+            mSubscriptionViewModel.getAllSubscriptions(username).observe((LifecycleOwner) activity, new Observer<List<Subscription>>() {
 
                 @Override
                 public void onChanged(List<Subscription> subscriptionList) {
@@ -66,7 +68,6 @@ public class HomeFragment extends Fragment {
 
             });
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         String budget = preferences.getString("budget", "0.00");
         currentBudget = Float.valueOf(budget);
         currency = preferences.getString("currency", "$");

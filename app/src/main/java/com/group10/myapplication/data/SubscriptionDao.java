@@ -13,10 +13,10 @@ import java.util.List;
 
 @Dao
 public interface SubscriptionDao {
-	@Query("SELECT * FROM Subscription")
-	public LiveData<List<Subscription>> getAllSubscriptions();
+	@Query("SELECT rowid, name, cost, duedate, username,duration FROM Subscription WHERE username=:username")
+	public LiveData<List<Subscription>> getAllSubscriptions(String username);
 
-	@Query("SELECT rowid, name, cost, duedate FROM Subscription WHERE rowid = :id LIMIT 1")
+	@Query("SELECT rowid, name, cost, duedate, username,duration FROM Subscription WHERE rowid = :id LIMIT 1")
 	public LiveData<Subscription> findById(int id);
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)

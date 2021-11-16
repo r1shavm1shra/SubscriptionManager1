@@ -15,7 +15,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -37,18 +34,14 @@ import androidx.navigation.Navigation;
 import androidx.preference.PreferenceManager;
 
 import com.group10.myapplication.R;
-import com.group10.myapplication.StringUtils;
 import com.group10.myapplication.data.SubscriptionViewModel;
 import com.group10.myapplication.data.model.Subscription;
 import com.group10.myapplication.databinding.FragmentAddBinding;
-import com.group10.myapplication.ui.gallery.GalleryFragment;
 import com.group10.myapplication.ui.login.AccountErrorDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 import timber.log.Timber;
 
@@ -59,8 +52,10 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     private TextView mTNewSubscription;
     private Button btnAdd;
     private int uid;
+    private String userName;
     private FragmentAddBinding binding;
     DatePickerDialog.OnDateSetListener date;
+    AutoCompleteTextView mEtDuration;
 
     private SubscriptionViewModel mSubscriptionViewModel;
 
@@ -78,9 +73,10 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         Activity activity = requireActivity();
         mSubscriptionViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(SubscriptionViewModel.class);
         mSubscriptionViewModel = new ViewModelProvider(this).get(SubscriptionViewModel.class);
-        Subscription subscription = new Subscription("", "", "");
+        Subscription subscription = new Subscription("", "", "","","");
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         uid = preferences.getInt("uid", -1);
+        userName = preferences.getString("name", "");
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove("uid");
         editor.apply();
@@ -91,6 +87,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                     mEtSubscriptionName.setText(subscription.mName);
                     mEtCost.setText(subscription.mCost);
                     mEtNextDueDate.setText(subscription.mDueDate);
+                    mEtDuration.setText(subscription.mDuration);
                     mTNewSubscription.setText("Edit Subscription");
                     btnAdd.setText("Edit Subscription");
                 }
@@ -150,17 +147,18 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         final String username = mEtSubscriptionName.getText().toString();
         final String cost = mEtCost.getText().toString();
         final String dueDate = mEtNextDueDate.getText().toString();
+        final String duration = mEtDuration.getText().toString();
 
         if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(cost) && !TextUtils.isEmpty(dueDate)) {
 
                 if(uid!=-1){
-                    Subscription Subscription = new Subscription(username, cost, dueDate);
+                    Subscription Subscription = new Subscription(username, cost, dueDate,userName, duration);
                     mSubscriptionViewModel.update(uid,Subscription);
                     Toast.makeText(activity.getApplicationContext(), "New Subscription added", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     // New way: create new Subscription, then add it to ViewModel
-                    Subscription Subscription = new Subscription(username, cost, dueDate);
+                    Subscription Subscription = new Subscription(username, cost, dueDate,userName, duration);
                     mSubscriptionViewModel.insert(Subscription);
                     Toast.makeText(activity.getApplicationContext(), "New Subscription added", Toast.LENGTH_SHORT).show();
                 }
@@ -201,14 +199,14 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         setOnFocusChangeListener(mEtCost,"Enter Cost");
         setOnFocusChangeListener(mEtNextDueDate,"mm/dd/yy");
 
-        AutoCompleteTextView dropdown = v.findViewById(R.id.every);
-        String[] items = new String[]{"month", "year"};
+        mEtDuration = v.findViewById(R.id.every);
+        String[] items = new String[]{"year","month"};
 //create an adapter to describe how the items are displayed, adapters are used in several places in android.
 //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, items);
 //set the spinners adapter to the previously created one.
-        dropdown.setAdapter(adapter);
-        dropdown.setText("month");
+        mEtDuration.setAdapter(adapter);
+        mEtDuration.setText("month");
 
         if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
             btnExit.setOnClickListener(this);

@@ -16,18 +16,16 @@ import java.util.List;
 public class SubscriptionRepository {
 
 	private SubscriptionDao mSubscriptionDao;
-	private LiveData<List<Subscription>> mAllSubscriptions;
 
 	private final String TAG = getClass().getSimpleName();
 
 	SubscriptionRepository(Application application) {
 		SubscriptionDatabase db = SubscriptionDatabase.getDatabase(application);
 		mSubscriptionDao = db.getSubscriptionDao();
-		mAllSubscriptions = mSubscriptionDao.getAllSubscriptions();
 	}
 
-	LiveData<List<Subscription>> getAllSubscriptions() {
-		return mAllSubscriptions;
+	LiveData<List<Subscription>> getAllSubscriptions(String name) {
+		return mSubscriptionDao.getAllSubscriptions(name);
 	}
 
 	LiveData<Subscription> findSubscriptionById(int id) {

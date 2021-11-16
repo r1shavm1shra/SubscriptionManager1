@@ -16,12 +16,10 @@ import com.group10.myapplication.data.model.Subscription;
 public class SubscriptionViewModel extends AndroidViewModel {
 
 	private SubscriptionRepository mRepository;
-	private final LiveData<List<Subscription>> mAllSubscriptions;
 
 	public SubscriptionViewModel(@NonNull Application application) {
 		super(application);
 		mRepository = new SubscriptionRepository(application);
-		mAllSubscriptions = mRepository.getAllSubscriptions();
 	}
 
 
@@ -29,7 +27,7 @@ public class SubscriptionViewModel extends AndroidViewModel {
 		return mRepository.findSubscriptionById(id);
 	}
 
-	public LiveData<List<Subscription>> getAllSubscriptions() { return mAllSubscriptions; }
+	public LiveData<List<Subscription>> getAllSubscriptions(String username) { return mRepository.getAllSubscriptions(username); }
 
 	public void insert(Subscription Subscription) {
 		mRepository.insert(Subscription);

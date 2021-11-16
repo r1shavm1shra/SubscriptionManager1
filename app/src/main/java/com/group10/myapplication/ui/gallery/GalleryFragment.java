@@ -84,7 +84,9 @@ public class GalleryFragment extends Fragment implements View.OnClickListener{
         }
         Activity activity = requireActivity();
         mSubscriptionViewModel = new ViewModelProvider(this).get(SubscriptionViewModel.class);
-        mSubscriptionViewModel.getAllSubscriptions().observe((LifecycleOwner)activity , new Observer<List<Subscription>>() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+        String username = preferences.getString("name", "");
+        mSubscriptionViewModel.getAllSubscriptions(username).observe((LifecycleOwner)activity , new Observer<List<Subscription>>() {
             @Override
             public void onChanged(List<Subscription> subscriptionList) {
                 adapter.setData(subscriptionList);
@@ -100,7 +102,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener{
         root = binding.getRoot();
 
         List<Subscription> subscriptionList = new ArrayList<Subscription>();
-        subscriptionList.add(new Subscription("","",""));
+        subscriptionList.add(new Subscription("","","","",""));
 
         if (root instanceof RecyclerView) {
             Context context = root.getContext();
