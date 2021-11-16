@@ -54,13 +54,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-            <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/every"
-            android:layout_width="fill_parent"
-                app:boxBackgroundMode="none"
-                android:layout_height="wrap_content"/>
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout3"
             android:layout_width="match_parent"
@@ -75,7 +68,20 @@
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            android:hint="Per">
 
+            <AutoCompleteTextView
+                android:id="@+id/every"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:ems="10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/done_button"

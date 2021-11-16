@@ -11,6 +11,7 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -194,13 +195,14 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         setOnFocusChangeListener(mEtCost,"Enter Cost");
         setOnFocusChangeListener(mEtNextDueDate,"mm/dd/yy");
 
-        Spinner dropdown = v.findViewById(R.id.every);
+        AutoCompleteTextView dropdown = v.findViewById(R.id.every);
         String[] items = new String[]{"month", "year"};
 //create an adapter to describe how the items are displayed, adapters are used in several places in android.
 //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, items);
 //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
+        dropdown.setText("month");
 
         if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
             btnExit.setOnClickListener(this);
