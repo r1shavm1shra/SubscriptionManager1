@@ -36,7 +36,7 @@
                 android:id="@+id/home_budget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Current Budget $250.00"
+                android:text="Current Budget ${currentBudget}"
                 android:textSize="16sp"
                 android:padding="10dp"
                 android:layout_centerInParent="true" />
@@ -52,7 +52,7 @@
                 android:id="@+id/home_spend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Spend $58.00"
+                android:text="Total Spend ${totalSpend}"
                 android:textSize="16sp"
                 android:padding="10dp"
                 android:layout_centerInParent="true" />
@@ -70,7 +70,7 @@
                 android:id="@+id/home_total_app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total number of Subscriptions #7"
+                android:text="Total number of Subscriptions #{subscriptionCount}"
                 android:textSize="16sp"
                 android:padding="10dp"
                 android:layout_centerInParent="true" />
@@ -85,7 +85,7 @@
                 android:id="@+id/home_rem_budget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remaining Budget $192"
+                android:text="Remaining Budget ${remainingBudget}"
                 android:textSize="16sp"
                 android:padding="10dp"
                 android:layout_centerInParent="true" />
@@ -99,7 +99,7 @@
             android:id="@+id/home_average_spend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Average spend per month $4.83"
+            android:text="Average spend per month ${averageSpend}"
             android:textSize="16sp"
             android:padding="10dp"
             android:layout_centerInParent="true" />

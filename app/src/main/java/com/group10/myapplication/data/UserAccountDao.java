@@ -22,14 +22,11 @@ public interface UserAccountDao {
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	public void insert(UserAccount userAccount);
 
-	@Update
-	public void updateUserAccount(UserAccount userAccount);
+	@Query("UPDATE useraccount SET password = :password,budget=:budget,currency=:currency WHERE name LIKE :name")
+	public void updateUserAccount(String name,String password, String budget, String currency);
 
 	@Delete
 	public void delete(UserAccount userAccount);
-
-	@Query("UPDATE useraccount SET password = :password WHERE name LIKE :name")
-	public void updatePassword(String name, String password);
 
 	@Query("SELECT rowid, name, password,budget,currency FROM useraccount WHERE name LIKE :name LIMIT 1")
 	public LiveData<UserAccount> getCurrentUser(String name);

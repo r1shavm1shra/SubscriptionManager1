@@ -43,14 +43,9 @@ public class UserAccountRepository {
 				mUserAccountDao.insert(userAccount));
 	}
 
-	void update(UserAccount userAccount) {
+	void updateAccount(UserAccount userAccount){
 		UserAccountDatabase.databaseWriteExecutor.execute(() ->
-				mUserAccountDao.updateUserAccount(userAccount));
-	}
-
-	void updatePassword(String name, String password){
-		UserAccountDatabase.databaseWriteExecutor.execute(() ->
-				mUserAccountDao.updatePassword(name, password));
+				mUserAccountDao.updateUserAccount(userAccount.getName(),userAccount.getPassword(), userAccount.getBudget(),userAccount.getCurrency()));
 	}
 	LiveData<UserAccount> getCurrentUser(String name){
 		return mUserAccountDao.getCurrentUser(name);

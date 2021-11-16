@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,12 +28,19 @@ import androidx.room.Delete;
 import androidx.room.Query;
 
 import com.group10.myapplication.R;
+import com.group10.myapplication.StringUtils;
 import com.group10.myapplication.data.UserAccountViewModel;
 import com.group10.myapplication.data.model.UserAccount;
 import com.group10.myapplication.databinding.FragmentSettingsBinding;
 import com.group10.myapplication.ui.login.LoginActivity;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Set;
 
 
 public class SettingsFragment extends Fragment implements View.OnClickListener{
@@ -39,6 +48,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     private FragmentSettingsBinding binding;
     private UserAccountViewModel mUserAccountViewModel;
     private UserAccount currentUser;
+    private EditText mEtUsername;
+    private EditText mEtPassword;
+    private EditText mEtConfirm;
+    private EditText mEtBudget;
+    private AutoCompleteTextView mEtCurrency;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -59,7 +73,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         View v = binding.getRoot();
 
         Activity activity = requireActivity();
-        final Button updateBudgetButton = v.findViewById(R.id.update_budget_button);
+        final Button updateBudgetButton = v.findViewById(R.id.update_password_button);
         if (updateBudgetButton != null) {
             updateBudgetButton.setOnClickListener(this);
         }
@@ -71,6 +85,18 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
         if (deleteAccountButton != null) {
             deleteAccountButton.setOnClickListener(this);
         }
+        mEtUsername = v.findViewById(R.id.username);
+        mEtPassword = v.findViewById(R.id.password);
+        mEtConfirm = v.findViewById(R.id.password_confirm);
+        mEtBudget = v.findViewById(R.id.budget);
+        mEtCurrency = (AutoCompleteTextView) v.findViewById(R.id.currency);
+        Set<Currency> currencies =  Currency.getAvailableCurrencies();
+        List<String> currencyList = new ArrayList<>();
+        for(Currency c:currencies){
+            currencyList.add(c.getDisplayName() +"-"+ c.getSymbol());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,android.R.layout.select_dialog_item, currencyList);
+        mEtCurrency.setAdapter(adapter);
 
         return v;
     }
@@ -83,6 +109,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onChanged(UserAccount UserAccount) {
                 currentUser = UserAccount;
+                mEtBudget.setText(currentUser.getBudget());
+                mEtCurrency.setText(currentUser.getCurrency());
             }
         });
         //If it passes all of these checks, then we can update the password to the new password
@@ -92,61 +120,62 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         final Activity activity = requireActivity();
         final int viewId = v.getId();
-        if (viewId == R.id.update_budget_button) {
-            updateBudget();
-        } else if (viewId == R.id.update_password_button) {
-            updatePassword();
+        if (viewId == R.id.update_password_button) {
+            updateAccount(v);
         } else if (viewId == R.id.delete_account_button) {
             deleteAccount();
         }
 
     }
 
-    private void updatePassword() {
+    private void updateAccount(View v) {
         //Show screen to enter old password. Then enter new password twice
-        AlertDialog dialogBuilder = new AlertDialog.Builder(getActivity()).create();
-        View dialogView = getLayoutInflater().inflate(R.layout.update_password, null);
-        EditText oldPassword = dialogView.findViewById(R.id.old_password);
-        EditText newPassword1 = dialogView.findViewById(R.id.new_password_1);
-        EditText newPassword2 = dialogView.findViewById(R.id.new_password_2);
         //Cancel button:
-        TextView cancelButton = dialogView.findViewById(R.id.cancel_update_password);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-                dialogBuilder.dismiss();
-            }
-        });
-        //Submit button:
-        TextView submitButton = dialogView.findViewById(R.id.submit_update_password);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Activity activity = getActivity();
+        final String oldpassword = mEtUsername.getText().toString();
+        final String newpassword = mEtPassword.getText().toString();
+        final String confirmpassword = mEtConfirm.getText().toString();
+        final String budget = mEtBudget.getText().toString();
+        final String currency = mEtCurrency.getText().toString();
+        String sha256HashStr = "";
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] sha256HashBytes = digest.digest(oldpassword.getBytes(StandardCharsets.UTF_8));
+            sha256HashStr = StringUtils.bytesToHex(sha256HashBytes);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+            String name = preferences.getString("name", "Joe");
 
-                final String SoldPassword = oldPassword.getText().toString();
-                final String SnewPassword1 = newPassword1.getText().toString();
-                final String SnewPassword2 = newPassword2.getText().toString();
 
-                //Check if any fields are null/empty
-                if(TextUtils.isEmpty(SoldPassword) || TextUtils.isEmpty(SnewPassword1) || TextUtils.isEmpty((SnewPassword2))){
+            //Check if any fields are null/empty
+               if((TextUtils.isEmpty(oldpassword) && TextUtils.isEmpty(newpassword) && TextUtils.isEmpty(confirmpassword)) && !(TextUtils.isEmpty(currency) || TextUtils.isEmpty(budget))){
+                   UserAccount userAccount = new UserAccount(name,currentUser.mPassword,budget,currency);
+                   //If it passes all of these checks, then we can update the password to the new password
+                   mUserAccountViewModel.updateAccount(userAccount);
+                   Toast.makeText(getActivity(), "Account Budget and Currency Updated", Toast.LENGTH_SHORT).show();
+
+               }
+               else if(TextUtils.isEmpty(oldpassword) || TextUtils.isEmpty(newpassword) || TextUtils.isEmpty(confirmpassword) || TextUtils.isEmpty(currency) || TextUtils.isEmpty(budget)){
                     Toast.makeText(getActivity(), "Fill in all fields", Toast.LENGTH_SHORT).show();
                     return;
-                } else if(!SoldPassword.equals(currentUser.mPassword)){//Check if old password matches currentUser's old password
+                } else if(!sha256HashStr.equals(currentUser.mPassword)){//Check if old password matches currentUser's old password
                     Toast.makeText(getActivity(), "Incorrect old password", Toast.LENGTH_SHORT).show();
                     return;
-                } else if(!SnewPassword1.equals(SnewPassword2)){ //Check if the new passwords match
+                } else if(!newpassword.equals(confirmpassword)){ //Check if the new passwords match
                     Toast.makeText(getActivity(), "New passwords do not match", Toast.LENGTH_SHORT).show();
                     return;
                 } else{
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                    String name = preferences.getString("name", "Joe");
+                    sha256HashBytes = digest.digest(newpassword.getBytes(StandardCharsets.UTF_8));
+                    sha256HashStr = StringUtils.bytesToHex(sha256HashBytes);
+                    UserAccount userAccount = new UserAccount(name,sha256HashStr,budget,currency);
                     //If it passes all of these checks, then we can update the password to the new password
-                    mUserAccountViewModel.updatePassword(name, SnewPassword1);
-
+                    mUserAccountViewModel.updateAccount(userAccount);
+                    Toast.makeText(getActivity(), "Account Updated", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
+        }
+        catch (NoSuchAlgorithmException e) {
+            Toast.makeText(activity, "Error: No SHA-256 algorithm found", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     private void updateBudget() {

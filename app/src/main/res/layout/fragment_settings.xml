@@ -14,29 +14,80 @@
         android:layout_gravity="center"
         android:textSize="16sp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Account Settings"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            />
-
-        <Button
-            android:id="@+id/update_budget_button"
-            android:text="Update Budget"
-            android:textColor="@color/white"
-            android:background="#187ff5"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout1"
             android:layout_width="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            android:hint="Current Password">
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            android:hint="New Password">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            android:hint="@string/confirm_password">
+
+            <EditText
+                android:id="@+id/password_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            android:hint="Budget">
+
+            <EditText
+                android:id="@+id/budget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            android:hint="Default Currency">
+
+            <AutoCompleteTextView
+                android:id="@+id/currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:ems="10" />
+
+        </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/update_password_button"
-            android:text="Update Password"
+            android:text="Update Account"
             android:textColor="@color/white"
             android:background="#187ff5"
             android:layout_width="match_parent"

@@ -118,13 +118,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
 			if (Objects.requireNonNull(userAccountList).contains(userAccount)) {
-				// Save username as the name of the player
 				SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putString(OPT_NAME, username);
 				editor.apply();
-				SubscriptionViewModel mSubscriptionViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(SubscriptionViewModel.class);
-				// Bring up the GameOptions screen
 				startActivity(new Intent("com.group10.myapplication.navigation"));
 				activity.finish();
 			} else {

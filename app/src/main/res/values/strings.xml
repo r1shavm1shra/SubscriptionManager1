@@ -35,7 +35,7 @@
     <string name="try_again_text">Try Again</string>
 
     <string name="backtologin">Back to Login</string>
-    <string name="account">Account</string>
+    <string name="account"></string>
     <string name="new_account">Welcome to Subscription Manager</string>
     <string name="username">Username</string>
     <string name="login_title">Log in to your Subscription Manager account</string>
