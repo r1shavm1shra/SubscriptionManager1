@@ -121,6 +121,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 				SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putString(OPT_NAME, username);
+				editor.putString("budget", "0.00");
 				editor.apply();
 				startActivity(new Intent("com.group10.myapplication.navigation"));
 				activity.finish();

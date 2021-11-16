@@ -206,7 +206,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_list_item_1, items);
 //set the spinners adapter to the previously created one.
         mEtDuration.setAdapter(adapter);
-        mEtDuration.setText("month");
+        mEtDuration.setText("year");
 
         if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
             btnExit.setOnClickListener(this);
