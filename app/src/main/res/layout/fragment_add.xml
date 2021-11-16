@@ -21,6 +21,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
+            android:id="@+id/new_subscription"
             android:text="@string/new_subscription"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
         <com.google.android.material.textfield.TextInputLayout
@@ -49,7 +50,7 @@
                 android:id="@+id/subscription_cost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

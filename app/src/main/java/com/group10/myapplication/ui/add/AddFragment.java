@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     private EditText mEtSubscriptionName;
     private EditText mEtCost;
     private EditText mEtNextDueDate;
+    private TextView mTNewSubscription;
+    private Button btnAdd;
     private int uid;
     private FragmentAddBinding binding;
     DatePickerDialog.OnDateSetListener date;
@@ -88,6 +91,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                     mEtSubscriptionName.setText(subscription.mName);
                     mEtCost.setText(subscription.mCost);
                     mEtNextDueDate.setText(subscription.mDueDate);
+                    mTNewSubscription.setText("Edit Subscription");
+                    btnAdd.setText("Edit Subscription");
                 }
             });
         }
@@ -184,7 +189,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         mEtSubscriptionName = v.findViewById(R.id.subscription_name);
         mEtCost = v.findViewById(R.id.subscription_cost);
         mEtNextDueDate = v.findViewById(R.id.next_due_date);
-        Button btnAdd = v.findViewById(R.id.done_button);
+        mTNewSubscription = v.findViewById(R.id.new_subscription);
+        btnAdd = v.findViewById(R.id.done_button);
         btnAdd.setOnClickListener(this);
         Button btnCancel = v.findViewById(R.id.cancel_button);
         btnCancel.setOnClickListener(this);

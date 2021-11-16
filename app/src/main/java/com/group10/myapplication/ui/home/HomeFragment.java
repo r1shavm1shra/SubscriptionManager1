@@ -31,8 +31,9 @@ public class HomeFragment extends Fragment {
     private SubscriptionViewModel mSubscriptionViewModel;
     private int subscriptionCount = 0;
     private float totalSpend = 0;
-    private float remainingBudget = 0;
-    private float currentBudget = 0;
+    private float remainingBudget = -1;
+    private float currentBudget = -1;
+    private String currency = "";
     private TextView mTotalSpend;
     private TextView mSubscriptionCount;
     private TextView mCurrentBudget;
@@ -56,24 +57,19 @@ public class HomeFragment extends Fragment {
 
                     }
                     remainingBudget = currentBudget - totalSpend;
-                    mRemainingBudget.setText(mRemainingBudget.getText().toString().replace("{remainingBudget}",String.format("%.2f",remainingBudget)));
-                    mTotalSpend.setText(mTotalSpend.getText().toString().replace("{totalSpend}", String.format("%.2f",totalSpend)));
+                    mCurrentBudget.setText(mCurrentBudget.getText().toString().replace("{currentBudget}",String.format("%.2f",currentBudget)).replace("$",currency));
+                    mRemainingBudget.setText(mRemainingBudget.getText().toString().replace("{remainingBudget}",String.format("%.2f",remainingBudget)).replace("$",currency));
+                    mTotalSpend.setText(mTotalSpend.getText().toString().replace("{totalSpend}", String.format("%.2f",totalSpend)).replace("$",currency));
                     mSubscriptionCount.setText(mSubscriptionCount.getText().toString().replace("{subscriptionCount}", String.valueOf(subscriptionCount)));
-                    mAverageSpend.setText(mAverageSpend.getText().toString().replace("{averageSpend}", String.format("%.2f", totalSpend/12)));
+                    mAverageSpend.setText(mAverageSpend.getText().toString().replace("{averageSpend}", String.format("%.2f", totalSpend/12)).replace("$",currency));
                 }
 
             });
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
-        String name = preferences.getString("name", "Joe");
-        UserAccountViewModel mUserAccountViewModel = new ViewModelProvider((ViewModelStoreOwner) activity).get(UserAccountViewModel.class);
-        mUserAccountViewModel.getCurrentUser(name).observe((LifecycleOwner)activity , new Observer<UserAccount>() {
-            @Override
-            public void onChanged(UserAccount userAccount) {
-                currentBudget = Float.valueOf(userAccount.getBudget());
-                mCurrentBudget.setText(mCurrentBudget.getText().toString().replace("{currentBudget}",String.format("%.2f",currentBudget)));
-            }
-        });
+        String budget = preferences.getString("budget", "0.00");
+        currentBudget = Float.valueOf(budget);
+        currency = preferences.getString("currency", "$");
         }catch (Exception e){
             e.toString();
         }

@@ -12,6 +12,10 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -21,6 +25,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import com.group10.myapplication.data.UserAccountViewModel;
+import com.group10.myapplication.data.model.UserAccount;
 import com.group10.myapplication.databinding.ActivityNavigationBinding;
 import com.group10.myapplication.ui.login.LoginActivity;
 
@@ -60,6 +66,17 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 navController.navigate(R.id.add);
+            }
+        });
+        UserAccountViewModel mUserAccountViewModel = new ViewModelProvider((ViewModelStoreOwner) this).get(UserAccountViewModel.class);
+        mUserAccountViewModel.getCurrentUser(name).observe((LifecycleOwner)this , new Observer<UserAccount>() {
+            @Override
+            public void onChanged(UserAccount userAccount) {
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("budget", userAccount.getBudget());
+                editor.putString("currency", userAccount.getCurrency().substring(userAccount.mCurrency.length()-1));
+                editor.apply();
             }
         });
 
