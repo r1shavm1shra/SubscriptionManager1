@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/OSU/MyApplication4/app/src/main/res/drawable/logout_background.xml" value="0.16111111111111112" />
         <entry key="..\:/OSU/MyApplication4/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.108984375" />
         <entry key="..\:/OSU/MyApplication4/app/src/main/res/layout/activity_login.xml" value="0.12635869565217392" />
         <entry key="..\:/OSU/MyApplication4/app/src/main/res/layout/activity_main.xml" value="0.7862903225806451" />

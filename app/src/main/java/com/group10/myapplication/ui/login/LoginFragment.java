@@ -118,11 +118,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
 			if (Objects.requireNonNull(userAccountList).contains(userAccount)) {
-				SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
-				SharedPreferences.Editor editor = settings.edit();
-				editor.putString(OPT_NAME, username);
-				editor.putString("budget", "0.00");
-				editor.apply();
+				for(UserAccount userAccount1 : userAccountList){
+					if(userAccount1.mPassword == userAccount.mPassword && userAccount1.mName == userAccount.mName){
+						SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+						SharedPreferences.Editor editor = settings.edit();
+						editor.putString(OPT_NAME, username);
+						editor.putString("budget", userAccount1.mBudget);
+						editor.putString("currency", userAccount1.getCurrency().substring(userAccount1.mCurrency.length()-1));
+						editor.apply();
+					}
+				}
+
 				startActivity(new Intent("com.group10.myapplication.navigation"));
 				activity.finish();
 			} else {

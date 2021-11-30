@@ -68,17 +68,7 @@ public class NavigationActivity extends AppCompatActivity {
                 navController.navigate(R.id.add);
             }
         });
-        UserAccountViewModel mUserAccountViewModel = new ViewModelProvider((ViewModelStoreOwner) this).get(UserAccountViewModel.class);
-        mUserAccountViewModel.getCurrentUser(name).observe((LifecycleOwner)this , new Observer<UserAccount>() {
-            @Override
-            public void onChanged(UserAccount userAccount) {
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("budget", userAccount.getBudget());
-                editor.putString("currency", userAccount.getCurrency().substring(userAccount.mCurrency.length()-1));
-                editor.apply();
-            }
-        });
+
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override

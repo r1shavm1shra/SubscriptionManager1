@@ -18,7 +18,7 @@
             android:title = "Account Settings" />
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/logout"
+            android:icon="@mipmap/logout"
             android:title="@string/menu_logout" />
     </group>
 </menu>

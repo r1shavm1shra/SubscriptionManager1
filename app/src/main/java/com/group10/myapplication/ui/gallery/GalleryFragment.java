@@ -47,7 +47,6 @@ import timber.log.Timber;
 
 public class GalleryFragment extends Fragment implements View.OnClickListener{
 
-    private GalleryViewModel galleryViewModel;
     private final String TAG = getClass().getSimpleName();
     private SubscriptionViewModel mSubscriptionViewModel;
     private FragmentGalleryBinding binding;
@@ -96,8 +95,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener{
     }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
