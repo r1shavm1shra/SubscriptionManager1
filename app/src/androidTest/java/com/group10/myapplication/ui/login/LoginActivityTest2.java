@@ -34,15 +34,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
+
 @LargeTest
+@SuppressWarnings("deprecation")
 @RunWith(AndroidJUnit4.class)
-public class LoginActivityTest {
+public class LoginActivityTest2 {
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
     @Test
-    public void loginActivityTest() {
+    public void loginActivityTest2() {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.new_user_button), withText("New User"),
                         childAtPosition(
@@ -52,74 +55,26 @@ public class LoginActivityTest {
                                 5)));
         materialButton.perform(scrollTo(), click());
 
-        ViewInteraction materialButton2 = onView(
-                allOf(withClassName(is("com.google.android.material.button.MaterialButton")), withText("Cancel"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                1)));
-        materialButton2.perform(scrollTo(), click());
+        try { Thread.sleep(3000);} catch(InterruptedException ex){Thread.currentThread().interrupt();}
 
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.username),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout1),
-                                        0),
-                                0),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("sunshine"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("a"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.password),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout2),
-                                        0),
-                                0),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("pass"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("pass"));
 
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.password_confirm),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout3),
-                                        0),
-                                0),
                         isDisplayed()));
-        appCompatEditText3.perform(replaceText("pas"), closeSoftKeyboard());
+        appCompatEditText3.perform(replaceText("pass"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.budget),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout5),
-                                        0),
-                                0),
-                        isDisplayed()));
-        appCompatEditText4.perform(replaceText("60"), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.password_confirm), withText("pas"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout3),
-                                        0),
-                                0),
-                        isDisplayed()));
-        appCompatEditText5.perform(replaceText("pass"));
-
-        ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.password_confirm), withText("pass"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout3),
-                                        0),
-                                0),
-                        isDisplayed()));
-        appCompatEditText6.perform(closeSoftKeyboard());
+                allOf(withId(R.id.budget),isDisplayed()));
+        appCompatEditText4.perform(replaceText("10"), closeSoftKeyboard());
 
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.done_button), withText("Sign Up"),
@@ -141,23 +96,13 @@ public class LoginActivityTest {
                         isDisplayed()));
         materialButton4.perform(click());
 
-        ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.username_text),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout),
-                                        0),
-                                1)));
-        appCompatEditText7.perform(scrollTo(), replaceText("sunshine"), closeSoftKeyboard());
+        ViewInteraction appCompatEditText5 = onView(
+                allOf(withId(R.id.username_text)));
+        appCompatEditText5.perform(scrollTo(), replaceText("a"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.password_text),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout2),
-                                        0),
-                                1)));
-        appCompatEditText8.perform(scrollTo(), replaceText("pass"), closeSoftKeyboard());
+        ViewInteraction appCompatEditText6 = onView(
+                allOf(withId(R.id.password_text)));
+        appCompatEditText6.perform(scrollTo(), replaceText("pass"), closeSoftKeyboard());
 
         ViewInteraction materialButton5 = onView(
                 allOf(withId(R.id.login_button), withText("Login"),
@@ -180,10 +125,10 @@ public class LoginActivityTest {
         appCompatImageButton.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.name), withText("sunshine"),
+                allOf(withId(R.id.name), withText("a"),
                         withParent(withParent(withId(R.id.navigation_header_container))),
                         isDisplayed()));
-        textView.check(matches(withText("sunshine")));
+        textView.check(matches(withText("a")));
     }
 
     private static Matcher<View> childAtPosition(

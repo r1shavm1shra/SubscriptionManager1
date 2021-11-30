@@ -39,6 +39,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @LargeTest
+@SuppressWarnings("deprecation")
 @RunWith(AndroidJUnit4.class)
 public class LoginAndDeleteSubscription {
 
@@ -56,81 +57,29 @@ public class LoginAndDeleteSubscription {
                                 5)));
         materialButton.perform(scrollTo(), click());
 
-        ViewInteraction materialButton2 = onView(
-                allOf(withClassName(is("com.google.android.material.button.MaterialButton")), withText("Cancel"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                1)));
-        materialButton2.perform(scrollTo(), click());
-
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.username),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout1),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatEditText.perform(replaceText("snow"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.password),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout2),
-                                        0),
-                                0),
-                        isDisplayed()));
+                allOf(withId(R.id.password), isDisplayed()));
         appCompatEditText2.perform(replaceText("pass"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.password_confirm),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout3),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatEditText3.perform(replaceText("pass"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.budget),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout5),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatEditText4.perform(replaceText("20"), closeSoftKeyboard());
 
         ViewInteraction materialAutoCompleteTextView = onView(
                 allOf(withId(R.id.currency), withText("US Dollar-$"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout4),
-                                        0),
-                                1),
                         isDisplayed()));
-        materialAutoCompleteTextView.perform(replaceText("US Dollar-"));
-
-        ViewInteraction materialAutoCompleteTextView2 = onView(
-                allOf(withId(R.id.currency), withText("US Dollar-"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout4),
-                                        0),
-                                1),
-                        isDisplayed()));
-        materialAutoCompleteTextView2.perform(closeSoftKeyboard());
-
-        DataInteraction materialTextView = onData(anything())
-                .inAdapterView(childAtPosition(
-                        withClassName(is("android.widget.PopupWindow$PopupBackgroundView")),
-                        0))
-                .atPosition(0);
-        materialTextView.perform(click());
+        materialAutoCompleteTextView.perform(replaceText("US Dollar-$"));
 
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.done_button), withText("Sign Up"),
@@ -153,21 +102,11 @@ public class LoginAndDeleteSubscription {
         materialButton4.perform(click());
 
         ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.username_text),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout),
-                                        0),
-                                1)));
+                allOf(withId(R.id.username_text)));
         appCompatEditText5.perform(scrollTo(), replaceText("snow"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.password_text),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout2),
-                                        0),
-                                1)));
+                allOf(withId(R.id.password_text)));
         appCompatEditText6.perform(scrollTo(), replaceText("pass"), closeSoftKeyboard());
 
         ViewInteraction materialButton5 = onView(
@@ -191,33 +130,28 @@ public class LoginAndDeleteSubscription {
         floatingActionButton.perform(click());
 
         ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.subscription_name),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout),
-                                        0),
-                                0),
-                        isDisplayed()));
+                allOf(withId(R.id.subscription_name),isDisplayed()));
         appCompatEditText7.perform(replaceText("sub"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText8 = onView(
                 allOf(withId(R.id.subscription_cost),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.text_input_layout2),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatEditText8.perform(replaceText("20"), closeSoftKeyboard());
 
+
+        ViewInteraction appCompatEditText9 = onView(
+                allOf(withId(R.id.next_due_date),
+                        isDisplayed()));
+        appCompatEditText9.perform(replaceText("12/23/21"), closeSoftKeyboard());
+
+
+
+
+
+
+        /*
         ViewInteraction appCompatImageButton = onView(
-                allOf(withClassName(is("androidx.appcompat.widget.AppCompatImageButton")), withContentDescription("Next month"),
-                        childAtPosition(
-                                allOf(withClassName(is("android.widget.DayPickerView")),
-                                        childAtPosition(
-                                                withClassName(is("com.android.internal.widget.DialogViewAnimator")),
-                                                0)),
-                                2)));
+                allOf(withClassName(is("androidx.appcompat.widget.AppCompatImageButton")), withContentDescription("Next month")));
         appCompatImageButton.perform(scrollTo(), click());
 
         ViewInteraction materialButton6 = onView(
@@ -228,6 +162,7 @@ public class LoginAndDeleteSubscription {
                                         0),
                                 3)));
         materialButton6.perform(scrollTo(), click());
+         */
 
         ViewInteraction materialButton7 = onView(
                 allOf(withId(R.id.done_button), withText("Create Subscription"),
