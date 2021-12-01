@@ -151,6 +151,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
                    UserAccount userAccount = new UserAccount(name,currentUser.mPassword,budget,currency);
                    //If it passes all of these checks, then we can update the password to the new password
                    mUserAccountViewModel.updateAccount(userAccount);
+                   SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+                   SharedPreferences.Editor editor = settings.edit();
+                   editor.putString("budget", budget);
+                   editor.putString("currency", currency.substring(currency.length()-1));
+                   editor.apply();
                    Toast.makeText(getActivity(), "Account Budget and Currency Updated", Toast.LENGTH_SHORT).show();
 
                }
@@ -169,6 +174,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener{
                     UserAccount userAccount = new UserAccount(name,sha256HashStr,budget,currency);
                     //If it passes all of these checks, then we can update the password to the new password
                     mUserAccountViewModel.updateAccount(userAccount);
+                    SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("budget", budget);
+                    editor.putString("currency", currency.substring(currency.length()-1));
+                    editor.apply();
                     Toast.makeText(getActivity(), "Account Updated", Toast.LENGTH_SHORT).show();
                 }
         }

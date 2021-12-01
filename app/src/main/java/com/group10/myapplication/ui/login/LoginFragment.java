@@ -119,7 +119,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 			if (Objects.requireNonNull(userAccountList).contains(userAccount)) {
 				for(UserAccount userAccount1 : userAccountList){
-					if(userAccount1.mPassword == userAccount.mPassword && userAccount1.mName == userAccount.mName){
+					if(userAccount1.mPassword.equals(userAccount.mPassword) && userAccount1.mName.equals(userAccount.mName)){
 						SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
 						SharedPreferences.Editor editor = settings.edit();
 						editor.putString(OPT_NAME, username);

@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/background"
     >
 
     <LinearLayout
@@ -27,7 +28,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#90ee90"
+            android:background="?attr/color"
             android:id="@+id/home_budgetId">
 
 
@@ -45,7 +46,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#90ee90"
+            android:background="?attr/color"
             android:id="@+id/home_spendId">
 
             <TextView
@@ -63,7 +64,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#90ee90"
+            android:background="?attr/color"
             android:id="@+id/home_total_appId">
 
             <TextView
@@ -78,7 +79,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#90ee90"
+            android:background="?attr/color"
             android:id="@+id/home_rem_budgetId">
 
             <TextView
@@ -93,7 +94,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#90ee90"
+        android:background="?attr/color"
         android:id="@+id/home_average_spendId">
         <TextView
             android:id="@+id/home_average_spend"
